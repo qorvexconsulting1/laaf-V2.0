@@ -1,0 +1,94 @@
+version: "3.9"
+
+# ── LAAF Docker Compose ────────────────────────────────────────────────────────
+# Usage:
+#   cp .env.example .env        # fill in your API keys
+#   docker compose up -d        # start API + dashboard
+#   docker compose run scan     # run a one-off scan
+#   docker compose logs -f      # tail logs
+
+services:
+
+  # ── REST API + Web Dashboard ────────────────────────────────────────────────
+  laaf:
+    build:
+      context: .
+      target: runtime
+    image: laaf:0.1.0
+    container_name: laaf-api
+    ports:
+      - "8081:8080"
+    volumes:
+      - results:/app/results
+      - logs:/app/logs
+    environment:
+      LAAF_API_HOST: "0.0.0.0"
+      LAAF_API_PORT: "8080"
+      LAAF_LOG_LEVEL: "${LAAF_LOG_LEVEL:-INFO}"
+      LAAF_OUTPUT_DIR: "/app/results"
+      LAAF_RATE_LIMIT_DELAY: "${LAAF_RATE_LIMIT_DELAY:-2.0}"
+      LAAF_MAX_ATTEMPTS_PER_STAGE: "${LAAF_MAX_ATTEMPTS_PER_STAGE:-500}"
+      # LLM API keys — set in .env file
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      GOOGLE_API_KEY: "${GOOGLE_API_KEY:-}"
+      HUGGINGFACE_API_KEY: "${HUGGINGFACE_API_KEY:-}"
+      OPENROUTER_API_KEY: "${OPENROUTER_API_KEY:-}"
+      AZURE_OPENAI_API_KEY: "${AZURE_OPENAI_API_KEY:-}"
+      AZURE_OPENAI_ENDPOINT: "${AZURE_OPENAI_ENDPOINT:-}"
+      AZURE_OPENAI_DEPLOYMENT: "${AZURE_OPENAI_DEPLOYMENT:-gpt-4o}"
+      # API auth key for REST endpoints
+      LAAF_API_KEY: "${LAAF_API_KEY:-}"
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ── One-off CLI scan (docker compose run scan) ──────────────────────────────
+  # Override target/model/stages via environment variables or command args:
+  #   docker compose run scan laaf scan --target openrouter --model openai/gpt-4o-mini --stages S1,S2,S3
+  scan:
+    build:
+      context: .
+      target: runtime
+    image: laaf:0.1.0
+    container_name: laaf-scan
+    volumes:
+      - results:/app/results
+      - logs:/app/logs
+    environment:
+      LAAF_OUTPUT_DIR: "/app/results"
+      LAAF_LOG_LEVEL: "${LAAF_LOG_LEVEL:-INFO}"
+      LAAF_RATE_LIMIT_DELAY: "${LAAF_RATE_LIMIT_DELAY:-2.0}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      GOOGLE_API_KEY: "${GOOGLE_API_KEY:-}"
+      HUGGINGFACE_API_KEY: "${HUGGINGFACE_API_KEY:-}"
+      OPENROUTER_API_KEY: "${OPENROUTER_API_KEY:-}"
+      AZURE_OPENAI_API_KEY: "${AZURE_OPENAI_API_KEY:-}"
+      AZURE_OPENAI_ENDPOINT: "${AZURE_OPENAI_ENDPOINT:-}"
+    env_file:
+      - .env
+    profiles:
+      - scan
+    command: >
+      laaf scan
+        --target ${LAAF_SCAN_TARGET:-mock}
+        --model ${LAAF_SCAN_MODEL:-}
+        --stages ${LAAF_SCAN_STAGES:-all}
+        --payloads ${LAAF_SCAN_PAYLOADS:-100}
+        --rate-delay ${LAAF_RATE_LIMIT_DELAY:-2.0}
+        --output /app/results
+        --format csv,json,html
+
+# ── Named volumes ──────────────────────────────────────────────────────────────
+volumes:
+  results:
+    driver: local
+  logs:
+    driver: local

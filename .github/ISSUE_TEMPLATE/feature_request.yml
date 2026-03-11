@@ -1,0 +1,34 @@
+name: Feature Request
+description: Suggest a new technique, platform, or capability
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: What would you like LAAF to do?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Feature Area
+      options:
+        - New taxonomy technique
+        - New platform adapter
+        - Reporting enhancement
+        - CLI improvement
+        - API endpoint
+        - Dashboard feature
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale / Use Case
+      description: Why would this benefit the LPCI security research community?

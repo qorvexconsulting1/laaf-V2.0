@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use LAAF in your research, please cite it as below."
+type: software
+title: "LAAF: Logic-layer Automated Attack Framework"
+abstract: >
+  The first automated red-teaming framework purpose-built for Logic-layer
+  Prompt Control Injection (LPCI) vulnerabilities in agentic LLM systems.
+  Implements a 44-technique taxonomy, Persistent Stage Breaker algorithm,
+  and multi-platform evaluation across the full 6-stage LPCI lifecycle.
+version: "0.1.0"
+date-released: "2026-03-06"
+license: Apache-2.0
+url: "https://github.com/qorvex-research/laaf"
+repository-code: "https://github.com/qorvex-research/laaf"
+keywords:
+  - LLM security
+  - prompt injection
+  - LPCI
+  - red teaming
+  - agentic AI
+  - RAG security
+  - automated security testing
+authors:
+  - family-names: Atta
+    given-names: Hammad
+    affiliation: "Qorvex Consulting / Roshan Consulting"
+    email: hatta@qorvexconsulting.com
+  - family-names: Huang
+    given-names: Ken
+    affiliation: "DistributedApps.AI / OWASP LLM Top 10"
+  - family-names: Bhatt
+    given-names: Manish
+    affiliation: "OWASP / Project Kuiper Security"
+  - family-names: Ahmed
+    given-names: Kamal
+    affiliation: "Deloitte, Enterprise Risk & Technology GRC"
+  - family-names: "Ul Haq"
+    given-names: "Muhammad Aziz"
+    affiliation: "Reykjavik University"
+  - family-names: Mehmood
+    given-names: Yasir
+    affiliation: "Nokia Technology Center, Ulm"
+references:
+  - type: article
+    title: "Logic-layer Prompt Control Injection (LPCI): A Novel Security Vulnerability Class in Agentic Systems"
+    authors:
+      - family-names: Atta
+        given-names: Hammad
+    year: 2025
+    url: "https://arxiv.org/abs/2507.10457"

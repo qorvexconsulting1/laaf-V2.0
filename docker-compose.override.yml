@@ -1,0 +1,4 @@
+services:
+  laaf:
+    ports:
+      - "8081:8080"

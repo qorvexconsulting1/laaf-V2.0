@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAAF Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-text">LAAF</span>
+      <span class="logo-sub">Logic-layer Automated Attack Framework</span>
+    </div>
+    <div class="header-meta">
+      v{{ version }} &nbsp;|&nbsp;
+      <a href="/docs" target="_blank">API Docs</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="sidebar">
+    <nav>
+      <button class="nav-btn active" onclick="showSection('scans')">Scans</button>
+      <button class="nav-btn" onclick="showSection('new-scan')">New Scan</button>
+      <button class="nav-btn" onclick="showSection('techniques')">Techniques</button>
+    </nav>
+  </div>
+
+  <div class="content">
+
+    <!-- ── Scans Section ── -->
+    <section id="scans" class="section">
+      <div class="section-header">
+        <h2>Active &amp; Completed Scans</h2>
+        <button class="btn-refresh" onclick="loadScans()">↻ Refresh</button>
+      </div>
+      <div id="scans-table-container">
+        <p class="loading">Loading scans…</p>
+      </div>
+    </section>
+
+    <!-- ── New Scan Section ── -->
+    <section id="new-scan" class="section hidden">
+      <h2>Launch New Scan</h2>
+      <form id="scan-form" class="scan-form" onsubmit="launchScan(event)">
+        <div class="form-grid">
+          <label>Target Platform
+            <select name="target" id="target">
+              <option value="mock">Mock (No API Key)</option>
+              <option value="openrouter">OpenRouter (Free Models)</option>
+              <option value="openai">OpenAI (GPT-4o)</option>
+              <option value="anthropic">Anthropic (Claude)</option>
+              <option value="google">Google (Gemini)</option>
+              <option value="huggingface">HuggingFace</option>
+            </select>
+          </label>
+          <label>Model Override (optional)
+            <input type="text" name="model" id="model-input" placeholder="e.g. gpt-4o, claude-3-5-sonnet-20241022">
+          </label>
+          <label>Max Payloads per Stage
+            <input type="number" name="max_payloads" value="100" min="1" max="5000">
+          </label>
+          <label>Rate Delay (seconds)
+            <input type="number" name="rate_delay" value="2.0" step="0.1" min="0.1">
+          </label>
+          <label>Stages (comma-separated or "all")
+            <input type="text" name="stages" value="S1,S2,S3,S4,S5,S6">
+          </label>
+        </div>
+        <div class="stage-checkboxes">
+          <label><input type="checkbox" class="stage-cb" value="S1" checked> S1 Recon</label>
+          <label><input type="checkbox" class="stage-cb" value="S2" checked> S2 Injection</label>
+          <label><input type="checkbox" class="stage-cb" value="S3" checked> S3 Trigger</label>
+          <label><input type="checkbox" class="stage-cb" value="S4" checked> S4 Persistence</label>
+          <label><input type="checkbox" class="stage-cb" value="S5" checked> S5 Evasion</label>
+          <label><input type="checkbox" class="stage-cb" value="S6" checked> S6 Trace Tamper</label>
+        </div>
+        <button type="submit" class="btn-primary">Launch Scan</button>
+        <div id="scan-feedback" class="scan-feedback"></div>
+      </form>
+    </section>
+
+    <!-- ── Techniques Section ── -->
+    <section id="techniques" class="section hidden">
+      <div class="section-header">
+        <h2>44-Technique Taxonomy</h2>
+        <select id="cat-filter" onchange="filterTechniques(this.value)">
+          <option value="">All Categories</option>
+          <option value="encoding">Encoding (E1–E11)</option>
+          <option value="structural">Structural (S1–S8)</option>
+          <option value="semantic">Semantic (M1–M8)</option>
+          <option value="layered">Layered (L1–L5)</option>
+          <option value="trigger">Trigger (T1–T12)</option>
+        </select>
+      </div>
+      <div id="techniques-container"><p class="loading">Loading techniques…</p></div>
+    </section>
+
+    <!-- ── Scan Detail Modal ── -->
+    <div id="scan-modal" class="modal hidden">
+      <div class="modal-overlay" onclick="closeModal()"></div>
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  LAAF v{{ version }} — Atta et al., Qorvex Research, 2026 |
+  <a href="https://arxiv.org/abs/2507.10457">arXiv:2507.10457</a> |
+  For authorised security testing only.
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
