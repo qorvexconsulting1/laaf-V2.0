@@ -71,10 +71,10 @@ laaf = "laaf.cli.main:cli"
 # my_technique = "my_package.techniques:MyTechnique"
 
 [project.urls]
-Homepage = "https://github.com/qorvexconsulting1/laaf"
-Documentation = "https://github.com/qorvexconsulting1/laaf/tree/main/docs"
-Repository = "https://github.com/qorvexconsulting1/laaf"
-Issues = "https://github.com/qorvexconsulting1/laaf/issues"
+Homepage = "https://github.com/qorvexconsulting1/laaf-V2.0"
+Documentation = "https://github.com/qorvexconsulting1/laaf-V2.0/tree/main/docs"
+Repository = "https://github.com/qorvexconsulting1/laaf-V2.0"
+Issues = "https://github.com/qorvexconsulting1/laaf-V2.0/issues"
 Paper = "https://arxiv.org/abs/2507.10457"
 
 [tool.hatch.build.targets.wheel]

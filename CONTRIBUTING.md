@@ -13,7 +13,7 @@ Thank you for contributing to the Logic-layer Automated Attack Framework!
 ## Development Setup
 
 ```bash
-git clone https://github.com/qorvexconsulting1/laaf
+git clone https://github.com/qorvexconsulting1/laaf-V2.0
 cd laaf
 pip install -e ".[dev]"
 ```

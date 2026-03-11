@@ -6,7 +6,7 @@
 
 **The first automated red-teaming framework purpose-built for Logic-layer Prompt Control Injection (LPCI) vulnerabilities in agentic LLM systems.**
 
-[![CI](https://github.com/qorvexconsulting1/laaf/actions/workflows/ci.yml/badge.svg)](https://github.com/qorvexconsulting1/laaf/actions)
+[![CI](https://github.com/qorvexconsulting1/laaf-V2.0/actions/workflows/ci.yml/badge.svg)](https://github.com/qorvexconsulting1/laaf-V2.0/actions)
 [![PyPI](https://img.shields.io/pypi/v/laaf.svg)](https://pypi.org/project/laaf/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://python.org)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
@@ -82,7 +82,7 @@ LAAF PSB compared against the LPCI paper's structured manual baseline (1,700 tes
 pip install laaf
 
 # From source
-git clone https://github.com/qorvexconsulting1/laaf
+git clone https://github.com/qorvexconsulting1/laaf-V2.0
 cd laaf
 pip install -e .
 ```
@@ -397,7 +397,7 @@ See [SECURITY.md](SECURITY.md) for the full responsible disclosure policy.
 Contributions welcome — techniques, platforms, report formats.
 
 ```bash
-git clone https://github.com/qorvexconsulting1/laaf
+git clone https://github.com/qorvexconsulting1/laaf-V2.0
 cd laaf
 pip install -e ".[dev]"
 pytest tests/           # 118 tests must pass

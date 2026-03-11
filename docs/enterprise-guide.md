@@ -335,6 +335,6 @@ Integrate with Grafana for continuous LPCI posture monitoring.
 
 ## Support
 
-- Issues: https://github.com/qorvexconsulting1/laaf/issues
-- Documentation: https://github.com/qorvexconsulting1/laaf/docs
+- Issues: https://github.com/qorvexconsulting1/laaf-V2.0/issues
+- Documentation: https://github.com/qorvexconsulting1/laaf-V2.0/docs
 - Paper: arXiv:2507.10457

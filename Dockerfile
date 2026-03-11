@@ -23,7 +23,7 @@ FROM python:3.11-slim AS runtime
 LABEL org.opencontainers.image.title="LAAF"
 LABEL org.opencontainers.image.description="Logic-layer Automated Attack Framework — Enterprise LPCI Red-Teaming for Agentic LLM Systems"
 LABEL org.opencontainers.image.authors="Hammad Atta <hatta@qorvexconsulting.com>"
-LABEL org.opencontainers.image.source="https://github.com/qorvexconsulting1/laaf"
+LABEL org.opencontainers.image.source="https://github.com/qorvexconsulting1/laaf-V2.0"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 LABEL org.opencontainers.image.version="0.1.0"
 
